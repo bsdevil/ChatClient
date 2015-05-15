@@ -23,10 +23,10 @@ public class ConfForm extends JDialog {
 
     }
 
-    public String LoadConfig(){
+    public String LoadConfig() {
         String result;
-        ConfFormSettings fs=ConfFormSettings.getInstance();
-        result=fs.loadFromFile();
+        ConfFormSettings fs = ConfFormSettings.getInstance();
+        result = fs.loadFromFile();
         protocolBox.setModel(new DefaultComboBoxModel(fs.getProtocolList()));
         protocolBox.setSelectedItem(fs.getProtocol());
         hostField.setText(fs.getHost());
@@ -36,25 +36,25 @@ public class ConfForm extends JDialog {
         return result;
     }
 
-    public String SaveConfig(){
-        String[] protocols=new String[protocolBox.getModel().getSize()];
-        int port=0;
+    public String SaveConfig() {
+        String[] protocols = new String[protocolBox.getModel().getSize()];
+        int port = 0;
 
         for (int i = 0; i < protocolBox.getModel().getSize(); i++) {
-            protocols[i]=(String)protocolBox.getModel().getElementAt(i);
+            protocols[i] = (String) protocolBox.getModel().getElementAt(i);
         }
 
         try {
             port = Integer.parseInt(portField.getText());
-        }catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             return "\"Port\" field should be a number";
         }
 
-        ConfFormSettings fs=ConfFormSettings.getInstance();
-                fs.Init(protocols
-                        , protocolBox.getSelectedItem().toString(),
-                        hostField.getText(), port, loginField.getText(),
-                        autoConnectCheck.isSelected());
+        ConfFormSettings fs = ConfFormSettings.getInstance();
+        fs.Init(protocols
+                , protocolBox.getSelectedItem().toString(),
+                hostField.getText(), port, loginField.getText(),
+                autoConnectCheck.isSelected());
         return fs.saveToFile();
     }
 
@@ -138,9 +138,9 @@ public class ConfForm extends JDialog {
 
                     //---- protocolBox ----
                     protocolBox.setFont(new Font("Segoe UI", Font.PLAIN, 10));
-                    protocolBox.setModel(new DefaultComboBoxModel(new String[] {
-                        "JSON",
-                        "XML"
+                    protocolBox.setModel(new DefaultComboBoxModel(new String[]{
+                            "JSON",
+                            "XML"
                     }));
                     panel2.add(protocolBox);
 
@@ -165,8 +165,8 @@ public class ConfForm extends JDialog {
             {
                 buttonBar.setBorder(new EmptyBorder(12, 0, 0, 0));
                 buttonBar.setLayout(new GridBagLayout());
-                ((GridBagLayout)buttonBar.getLayout()).columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 80};
-                ((GridBagLayout)buttonBar.getLayout()).columnWeights = new double[] {1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+                ((GridBagLayout) buttonBar.getLayout()).columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 80};
+                ((GridBagLayout) buttonBar.getLayout()).columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
                 //---- autoConnectCheck ----
                 autoConnectCheck.setText("AutoConnect");
@@ -175,31 +175,30 @@ public class ConfForm extends JDialog {
                         new Insets(0, 0, 0, 5), 0, 0));
 
                 //---- saveBtn ----
-                saveBtn.setText("Save");
                 saveBtn.setAction(saveAction);
                 buttonBar.add(saveBtn, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 5), 0, 0));
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 0, 5), 0, 0));
 
                 //---- connectBtn ----
                 connectBtn.setText("Test connection...");
                 connectBtn.setAction(TestConnAction);
                 buttonBar.add(connectBtn, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 5), 0, 0));
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 0, 5), 0, 0));
 
                 //---- okButton ----
                 okButton.setText("OK");
                 okButton.setAction(okAction);
                 buttonBar.add(okButton, new GridBagConstraints(10, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 5), 0, 0));
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 0, 5), 0, 0));
 
                 //---- cancelButton ----
                 cancelButton.setAction(cancelAction);
                 buttonBar.add(cancelButton, new GridBagConstraints(11, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 0, 0), 0, 0));
             }
             dialogPane.add(buttonBar, BorderLayout.PAGE_END);
         }
@@ -243,7 +242,7 @@ public class ConfForm extends JDialog {
         }
 
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(ConfForm.this,ConfForm.this.SaveConfig());
+            JOptionPane.showMessageDialog(ConfForm.this, ConfForm.this.SaveConfig());
         }
     }
 
@@ -281,25 +280,23 @@ public class ConfForm extends JDialog {
 
         public void actionPerformed(ActionEvent e) {
             ConfForm.this.SaveConfig();
-            ConfFormSettings fs=ConfFormSettings.getInstance();
-            ChatSession cs=ChatSession.getInstance();
-            cs.Init(fs.getProtocol(), fs.getHost(), fs.getPort(), fs.getLogin());
+            ConfFormSettings fs = ConfFormSettings.getInstance();
+            ChatSession cs = ChatSession.getInstance();
             try {
-                if (cs.getSessionID()!=null){
-                    JOptionPane.showMessageDialog(ConfForm.this,"Already connected!");
+                if (cs.getSessionID() != null) {
+                    JOptionPane.showMessageDialog(ConfForm.this, "Already connected!");
                     return;
                 }
                 String result = cs.login();
-
-            if (result.equals("200")) {
-                JOptionPane.showMessageDialog(ConfForm.this,"Connection successful!");
-                cs.logout();
-            } else
-            {
-                JOptionPane.showMessageDialog(ConfForm.this,result);
-            }
+                cs.Init(fs.getProtocol(), fs.getHost(), fs.getPort(), fs.getLogin());
+                if (result.equals("200")) {
+                    JOptionPane.showMessageDialog(ConfForm.this, "Connection successful!");
+                    cs.logout();
+                } else {
+                    JOptionPane.showMessageDialog(ConfForm.this, result);
+                }
             } catch (IOException e1) {
-                JOptionPane.showMessageDialog(ConfForm.this,e1.getMessage());
+                JOptionPane.showMessageDialog(ConfForm.this, e1.getMessage());
             }
         }
     }
